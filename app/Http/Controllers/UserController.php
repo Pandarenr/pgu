@@ -13,31 +13,17 @@ use Auth;
 
 class UserController extends Controller
 {
-
     /**
-     * create a new instance of the class
+     * Display a profile.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    function __construct()
+    public function profile ()
     {
-         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:user-create', ['only' => ['create','store']]);
-         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        return view('profile.index',[
+            'data'=>User::where('id',Auth::user()->id)->first()
+        ]);
     }
-
-
-    public function profile ($profile_id) {
-
-        if ( Auth::user()->id == $profile_id ) {
-            if(User::where('id',$profile_id)->exists()) {
-                return view('profile.profile',['data'=>User::where('id',$profile_id)->first()]);
-            }
-        }else{
-            return abort(404);
-        }
-     }
     /**
      * Display a listing of the resource.
      *

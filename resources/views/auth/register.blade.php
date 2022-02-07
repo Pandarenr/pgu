@@ -19,6 +19,35 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            <div>
+                <x-label for="second_name" :value="__('Фамилия')" />
+
+                <x-input id="second_name" class="block mt-1 w-full" type="text" name="second_name" :value="old('second_name')" required autofocus />
+            </div>
+
+            <div>
+                <x-label for="patronymic" :value="__('Отчество')" />
+
+                <x-input id="patronymic" class="block mt-1 w-full" type="text" name="patronymic" :value="old('patronymic')" required autofocus />
+            </div>
+
+            <div>
+                <x-label for="gender" :value="__('Пол')" />
+
+                <x-input id="gender" class="block mt-1 w-full" type="text" name="gender" :value="old('gender')" required autofocus />
+            </div>
+
+            <div>
+                <x-label for="phone" :value="__('Телефон')" />
+
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus />
+            </div>
+
+            <div>
+                <x-label for="age" :value="__('Возраст')" />
+
+                <x-input id="age" class="block mt-1 w-full" type="text" name="age" :value="old('age')" required autofocus />
+            </div>
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Почта')" />

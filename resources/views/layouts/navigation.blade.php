@@ -15,7 +15,7 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Главная') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('courses')" :active="request()->routeIs('courses')">
+                    <x-nav-link :href="route('courses-main-page')" :active="request()->routeIs('courses-main-page')">
                         {{ __('Курсы') }}
                     </x-nav-link>
                     <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
@@ -25,13 +25,13 @@
             </div>
 
             <!-- Settings Dropdown -->
-            @if (Route::has('login'))
-                @auth
+
+            @auth
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->second_name }}</div>
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -41,9 +41,29 @@
                         </x-slot>
                         <x-slot name="content">
                             <!-- Authentication -->
-                            <x-dropdown-link :href="url('profile/'. Auth::user()->id)">
+                            <x-dropdown-link :href="route('profile')">
                                 {{ __('Профиль') }}
                             </x-dropdown-link>
+                            @can('own-course-edit')
+                                <x-dropdown-link :href="route('user-courses-list')">
+                                    {{ __('Мои курсы') }}
+                                </x-dropdown-link>
+                            @endcan
+                            @can('course-edit')
+                                <x-dropdown-link :href="route('all-courses-list')">
+                                    {{ __('Курсы') }}
+                                </x-dropdown-link>
+                            @endcan
+                            @can('own-request-edit')
+                                <x-dropdown-link :href="route('home')">
+                                    {{ __('Мои заявки') }}
+                                </x-dropdown-link>
+                            @endcan
+                            @can('request-edit')
+                                <x-dropdown-link :href="route('all-courses-list')">
+                                    {{ __('Заявки') }}
+                                </x-dropdown-link>
+                            @endcan
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
@@ -56,15 +76,13 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-                @else
-                    <div class="hidden sm:flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Войти') }}</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Регистрация') }}</a>
-                            @endif
-                    </div>
-                @endauth
-            @endif
+            @else
+                <div class="hidden sm:flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Войти') }}</a>
+                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Регистрация') }}</a>
+                </div>
+            @endauth
+
 
             <div class="flex sm:hidden">
                 <!-- Hamburger Button -->
@@ -95,7 +113,7 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Главная') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('courses')" :active="request()->routeIs('courses')">
+            <x-responsive-nav-link :href="route('courses-main-page')" :active="request()->routeIs('courses-main-page')">
                 {{ __('Курсы') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')">
@@ -105,40 +123,53 @@
     </div>
     <!-- Responsive Profile Menu -->
     <div :class="{'block': profile, 'hidden': ! profile}" class="hidden sm:hidden">
-        @if (Route::has('login'))
-            @auth
-                <!-- Responsive Settings Options -->
-                <div class="pt-4 pb-1 border-t border-gray-100">
-                    <div class="mt-3 space-y-1">
-                        <x-responsive-nav-link :href="url('profile/'. Auth::user()->id)">
-                            {{ Auth::user()->name }}
+        @auth
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-t border-gray-100">
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('profile')">
+                        {{ Auth::user()->name }} {{ Auth::user()->second_name }}
+                    </x-responsive-nav-link>
+                    @can('own-course-edit')
+                        <x-responsive-nav-link :href="route('user-courses-list')">
+                            {{ __('Мои курсы') }}
                         </x-responsive-nav-link>
-                    </div>
-                    <div class="mt-3 space-y-1">
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-responsive-nav-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Выйти') }}
-                            </x-responsive-nav-link>
-                        </form>
-                    </div>
-                </div>
-            @else
-                <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('login')">
-                    {{ __('Войти') }}
-                </x-responsive-nav-link>
-                    @if (Route::has('register'))
-                        <x-responsive-nav-link :href="route('register')">
-                            {{ __('Регистрация') }}
+                    @endcan
+                    @can('course-edit')
+                        <x-responsive-nav-link :href="route('all-courses-list')">
+                            {{ __('Курсы') }}
                         </x-responsive-nav-link>
-                    @endif
+                    @endcan
+                    @can('own-request-edit')
+                        <x-responsive-nav-link :href="route('home')">
+                            {{ __('Мои заявки') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                    @can('request-edit')
+                        <x-responsive-nav-link :href="route('all-courses-list')">
+                            {{ __('Заявки') }}
+                        </x-responsive-nav-link>
+                    @endcan
                 </div>
-            @endauth
-        @endif
+                <div class="mt-3 space-y-1">
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                            {{ __('Выйти') }}
+                        </x-responsive-nav-link>
+                    </form>
+                </div>
+            </div>
+        @else
+            <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('login')">
+                        {{ __('Войти') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('register')">
+                        {{ __('Регистрация') }}
+                    </x-responsive-nav-link>
+            </div>
+        @endauth
     </div>
 </nav>

@@ -15,12 +15,12 @@
                                         <a href="" class=" font-semibold text-dark text-xl sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px] mb-4 block hover:text-primary">
                                             {{$el->name}}
                                         </a>
-                                     </h3>
-                                     <p class="text-base text-body-color leading-relaxed mb-7 h-20 overflow-hidden">
+                                    </h3>
+                                    <p class="text-base text-body-color leading-relaxed mb-7 h-20 overflow-hidden">
                                         Lorem ipsum dolor sit amet pretium consectetur adipiscing
                                         elit. Lorem consectetur adipiscing elit.
-                                     </p>
-                                     <a href="\courses\{{$el->id}}" class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Подробно</a>
+                                    </p>
+                                    <a href="\courses\{{$el->id}}" class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Подробно</a>
                                   </div>
                                </div>
                             </div>
