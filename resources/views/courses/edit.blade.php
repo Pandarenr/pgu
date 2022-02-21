@@ -33,20 +33,68 @@
                                 @endif
                             </div>
 
-                            <select name="subject_id" id="subject_id" class="my-4 block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                                <option @if (!is_null($course)) selected @endif value="">Выберете категорию</option>
+                            <div>
+                                <x-label for="name" :value="__('Форма обучения')" />
                                 @if (!is_null($course))
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}" @if ($course && ($subject->id == $course->subject_id)) selected @endif>{{ $subject->name }}</option>
-                                    @endforeach
+                                    <x-input id="form" class="block mt-1 w-full" type="text" name="form" value="{{ $course->form }}" required />
                                 @else
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                    @endforeach
+                                    <x-input id="form" class="block mt-1 w-full" type="text" name="form" value="" required />
                                 @endif
-                            </select>
+                            </div>
 
-                            <button class="btn btn-success">
+                            <div>
+                                <x-label for="name" :value="__('Длительность обучения')" />
+                                @if (!is_null($course))
+                                    <x-input id="duration" class="block mt-1 w-full" type="text" name="duration" value="{{ $course->duration }}" required />
+                                @else
+                                    <x-input id="duration" class="block mt-1 w-full" type="text" name="duration" value="" required />
+                                @endif
+                            </div>
+
+                            <div>
+                                <x-label for="name" :value="__('Категория обучающихся')" />
+                                @if (!is_null($course))
+                                    <x-input id="kategory" class="block mt-1 w-full" type="text" name="kategory" value="{{ $course->kategory }}" required />
+                                @else
+                                    <x-input id="kategory" class="block mt-1 w-full" type="text" name="kategory" value="" required />
+                                @endif
+                            </div>
+
+                            <div class="">
+                                <x-label for="name" :value="__('Направление программы')" />
+                                <select name="subject_id" id="subject_id" class=" block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                                    <option @if (!is_null($course)) selected @endif value="">Выберете категорию</option>
+                                    @if (!is_null($course))
+                                        @foreach ($subjects as $subject)
+                                            <option value="{{ $subject->id }}" @if ($course && ($subject->id == $course->subject_id)) selected @endif>{{ $subject->name }}</option>
+                                        @endforeach
+                                    @else
+                                        @foreach ($subjects as $subject)
+                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+
+                            <div>
+                                <x-label for="name" :value="__('Цена')" />
+                                @if (!is_null($course))
+                                    <x-input id="kategory" class="block mt-1 w-full" type="text" name="kategory" value="" required />
+                                @else
+                                    <x-input id="kategory" class="block mt-1 w-full" type="text" name="kategory" value="" required />
+                                @endif
+                            </div>
+
+                            <div class="">
+                                <x-label for="name" :value="__('Изображение')" />
+
+                                <div class="inline-flex rounded-md shadow-sm border-gray-300 border focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50  w-full">
+                                    @include('common.svg.upload')
+                                    <input id="name" class="border-none block w-full" type="text" name="name" value="" required>
+                                </div>
+                            </div>
+
+                            <button class="mt-2 btn btn-success">
                                 @if($course)
                                 {{ __('Обновить') }}
                                 @else

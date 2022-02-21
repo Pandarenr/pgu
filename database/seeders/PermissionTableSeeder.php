@@ -17,10 +17,9 @@ class PermissionTableSeeder extends Seeder
         $data = [
             'own-course-edit',
             'course-edit',
-            'own-request-edit',
-            'request-edit',
             'post-edit',
             'user-edit',
+            'listener-request-edit',
         ];
 
         foreach ($data as $permission) {

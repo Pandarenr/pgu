@@ -17,6 +17,9 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->string('form');
+            $table->string('duration');
+            $table->string('kategory');
             $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignId('creator_id')->constrained('users');
             $table->timestamps();

@@ -13,11 +13,6 @@ use Illuminate\Contracts\View\View;
 class CourseController extends Controller
 {
 
-    /**
-     * Main page
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function main()
     {
         $data = Course::with('subject')->paginate(8);
@@ -91,14 +86,20 @@ class CourseController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:400'],
+            'description' => ['required', 'string', 'max:2000'],
             'subject_id' => ['required'],
+            'form' => ['required','string'],
+            'duration' => ['required','string'],
+            'kategory' => ['required','string'],
         ]);
 
         $course = Course::create([
             'name' => $request->name,
             'description' => $request->description,
             'subject_id' => $request->subject_id,
+            'form' => $request->form,
+            'duration' => $request->duration,
+            'kategory' => $request->kategory,
             'creator_id' => Auth::user()->id,
         ]);
         if($course){
@@ -141,8 +142,11 @@ class CourseController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:400'],
+            'description' => ['required', 'string', 'max:2000'],
             'subject_id' => ['required'],
+            'form' => ['required','string'],
+            'duration' => ['required','string'],
+            'kategory' => ['required','string'],
         ]);
 
         $id = $request->get('id');
@@ -157,6 +161,9 @@ class CourseController extends Controller
         $course->name = $request->name;
         $course->description = $request->description;
         $course->subject_id = $request->subject_id;
+        $course->form = $request->form;
+        $course->duration = $request->duration;
+        $course->kategory = $request->kategory;
         $course->creator_id = Auth::user()->id;
 
         $course->save();

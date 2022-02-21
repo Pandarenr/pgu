@@ -17,7 +17,7 @@ class RoleTableSeeder extends Seeder
     {
         Role::create(['name'=>'admin']);
         $role=Role::findByName('admin');
-        $role->syncPermissions(array(2,4,5,6));
+        $role->syncPermissions(array(2,3,4,5));
 
         Role::create(['name'=>'head']);
         $role=Role::findByName('head');

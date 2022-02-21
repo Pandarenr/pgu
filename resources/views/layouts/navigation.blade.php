@@ -16,10 +16,13 @@
                         {{ __('Главная') }}
                     </x-nav-link>
                     <x-nav-link :href="route('courses-main-page')" :active="request()->routeIs('courses-main-page')">
-                        {{ __('Курсы') }}
+                        {{ __('Программы ДО') }}
                     </x-nav-link>
                     <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
                         {{ __('О нас') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('docs')" :active="request()->routeIs('docs')">
+                        {{ __('Документы') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -51,7 +54,7 @@
                             @endcan
                             @can('course-edit')
                                 <x-dropdown-link :href="route('all-courses-list')">
-                                    {{ __('Курсы') }}
+                                    {{ __('Программы ДО') }}
                                 </x-dropdown-link>
                             @endcan
                             @can('own-request-edit')
@@ -59,8 +62,8 @@
                                     {{ __('Мои заявки') }}
                                 </x-dropdown-link>
                             @endcan
-                            @can('request-edit')
-                                <x-dropdown-link :href="route('all-courses-list')">
+                            @can('listener-request-edit')
+                                <x-dropdown-link :href="route('listeners-requests')">
                                     {{ __('Заявки') }}
                                 </x-dropdown-link>
                             @endcan
@@ -114,7 +117,7 @@
                 {{ __('Главная') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('courses-main-page')" :active="request()->routeIs('courses-main-page')">
-                {{ __('Курсы') }}
+                {{ __('Программы ДО') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')">
                 {{ __('О нас') }}
@@ -137,7 +140,7 @@
                     @endcan
                     @can('course-edit')
                         <x-responsive-nav-link :href="route('all-courses-list')">
-                            {{ __('Курсы') }}
+                            {{ __('Программы ДО') }}
                         </x-responsive-nav-link>
                     @endcan
                     @can('own-request-edit')
@@ -145,8 +148,8 @@
                             {{ __('Мои заявки') }}
                         </x-responsive-nav-link>
                     @endcan
-                    @can('request-edit')
-                        <x-responsive-nav-link :href="route('all-courses-list')">
+                    @can('listener-request-edit')
+                        <x-responsive-nav-link :href="route('listeners-requests')">
                             {{ __('Заявки') }}
                         </x-responsive-nav-link>
                     @endcan

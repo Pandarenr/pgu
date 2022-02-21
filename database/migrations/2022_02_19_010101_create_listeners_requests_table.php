@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRequestsTable extends Migration
+class CreatelistenersRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('listeners_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('second_name');
-            $table->string('email');
-            $table->string('phone',10);
-            $table->string('age',10);
-            $table->string('course_id');
-            $table->string('user_id');
+            $table->boolean('new');
+            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('documents');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('listeners_requests');
     }
 }

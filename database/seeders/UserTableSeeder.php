@@ -30,7 +30,8 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ]);
-
+        $role=Role::findByName('admin');
+        $user->assignRole([$role->id]);
 
         $user = User::create([
             'name' => 'Иван',

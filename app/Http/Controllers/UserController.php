@@ -72,9 +72,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         //
+        return view('profile.edit',['data'=>Auth::user()]);
+    }
+
+    public function editPass()
+    {
+        //
+        return view('profile.edit-pass');
     }
 
     /**
@@ -84,8 +91,36 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:40'],
+            'second_name' => ['required', 'string', 'max:40'],
+            'patronymic' => ['required', 'string', 'max:40'],
+            'gender' => ['required','string'],
+            'phone' => ['required', 'max:10','string'],
+            'age' => ['required', 'max:10','string'],
+            'email' => ['required', 'string', 'email', 'max:80', 'unique:users']
+        ]);
+        //return dd($val);
+        $user=User::findOrFail(Auth::user()->id);
+        $data=[
+            'name' => $request->name,
+            'second_name' => $request->second_name,
+            'patronymic' => $request->patronymic,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'age' => $request->age
+        ];
+
+        // if (!$user->save($data)){
+        //     return redirect(url('/profile'))->with('error','Ошибка изменения'.$user);
+        // };
+        $user->update($data);
+        //return dd($user);
+        return redirect(url('/profile'))->with('success','Профиль успешно изменён'.$user);
         //
     }
 

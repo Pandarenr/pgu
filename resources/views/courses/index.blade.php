@@ -9,7 +9,7 @@
             </div>
             <div class=" flex items-center justify-between py-6">
                 <div>
-                    <h2 class="text-gray-600 font-semibold">Список созданных курсов</h2>
+                    <h2 class="text-gray-600 font-semibold">Список программ ДО</h2>
                 </div>
                 <div class="flex items-center justify-between">
                     <a href="{{route('course-create')}}" class="lg:ml-40 ml-10 space-x-8">
