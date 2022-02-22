@@ -27,8 +27,8 @@ class RoleTableSeeder extends Seeder
         $role=Role::findByName('teacher');
         $role->syncPermissions(array(1));
 
-        Role::create(['name'=>'user']);
-        $role=Role::findByName('user');
-        $role->syncPermissions(array(3));
+        Role::create(['name'=>'listener']);
+        $role=Role::findByName('listener');
+        $role->syncPermissions(array(6));
     }
 }

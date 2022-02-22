@@ -13,25 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', 'AppController@home')->name('home');
+Route::get('/about', 'AppController@about')->name('about');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/documents', 'DocumentController@index')->name('docs');
 
-Route::get('/documents', 'HomeController@docs')->name('docs');
 Route::middleware(['permission:course-edit'])->get('/documents/upload', 'HomeController@docsUpload')->name('docs-upload');
 
 Route::get('courses', 'CourseController@main')->name('courses-main-page');
 Route::get('courses/{course_id}', 'CourseController@detailCourse');
-Route::middleware(['auth','permission:own-request-edit'])->post('courses/{course_id}','CourseController@createRequest')->name('user-subscribe-request');
+
+Route::middleware('role:listener')->group(function(){
+    Route::post('courses/{course_id}','ListenerRequestController@store')->name('listener-request-create');
+});
+
+Route::middleware('role:admin')->group(function(){
+
+});
+
 
 
 Route::middleware(['auth','permission:listener-request-edit'])->prefix('admin')->group( function() {
-    Route::get('/listeners-requests','ListenerRequestController@index')->name('listeners-requests');
-    Route::get('/listeners-requests/{id}','ListenerRequestController@show')->name('listeners-requests-show');
+    Route::get('/listeners-requests','AdminListenerRequestController@index')->name('listeners-requests');
+    Route::get('/listeners-requests/{id}','AdminListenerRequestController@show')->name('listeners-requests-show');
     Route::delete('/listeners-requests/{id}','ListenerRequestController@delete')->name('listeners-requests-delete');
 });
 

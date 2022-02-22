@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        {{__('Управление курсами')}}
+        {{__('Управление заявками')}}
     </x-slot>
     <div class="container max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="pt-4">
@@ -8,7 +8,12 @@
         </div>
         <div class=" flex items-center justify-between py-6">
             <div>
-                <h2 class="text-gray-600 font-semibold">Список заявок</h2>
+                @can('listener-request-edit')
+                    <h2 class="text-gray-600 font-semibold">Полученные заявки</h2>
+                @endcan
+                @can('listener-own-request-edit')
+                    <h2 class="text-gray-600 font-semibold">Поданные заявки</h2>
+                @endcan
             </div>
             {{-- <div class="flex items-center justify-between">
                 <a href="{{route('course-create')}}" class="lg:ml-40 ml-10 space-x-8">
@@ -45,7 +50,6 @@
 
         </div>
         <div class="bg-white rounded-md w-full">
-
             <div>
                 <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -56,16 +60,13 @@
                                         ID
                                     </th>
                                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        ФИО
+                                        courseID
                                     </th>
                                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Почта
+                                        userID
                                     </th>
                                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Телефон
-                                    </th>
-                                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Название программы
+                                        Дата
                                     </th>
                                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Действия
@@ -74,35 +75,30 @@
                             </thead>
                             <tbody>
                                 @foreach($data as $el)
-                                    <tr>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">
+                                    <tr @if($el->new)class="bg-green-300"@endif>
+                                        <td class="px-5 py-5 border-b border-gray-200 text-sm items-center">
                                             <p class="text-gray-900 whitespace-no-wrap">
                                                 {{ $el->id }}
                                             </p>
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">
+                                        <td class="px-5 py-5 border-b border-gray-200 text-sm items-center">
                                             <p class="text-gray-900 whitespace-no-wrap">
-                                                {{ $el->name." ".$el->second_name }}
+                                                {{ $el->course_id }}
                                             </p>
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm items-center ">
-                                            <p class="text-gray-900 whitespace-no-wrap overflow-hidden h-10">
-                                                {{ $el->email }}
-                                            </p>
-                                        </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">
+                                        <td class="px-5 py-5 border-b border-gray-200 text-sm items-center ">
                                             <p class="text-gray-900 whitespace-no-wrap">
-                                                {{ $el->phone }}
+                                                {{ $el->user_id }}
                                             </p>
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">
+                                        <td class="px-5 py-5 border-b border-gray-200 text-sm items-center">
                                             <p class="text-gray-900 whitespace-no-wrap">
-                                                {{ $el->course->name }}
+                                                {{ $el->created_at }}
                                             </p>
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">
+                                        <td class="px-5 py-5 border-b border-gray-200 text-sm items-center">
                                             <div class="flex">
-                                                <a href="requests\{{$el->id}}" class="btn btn-primary mr-2">
+                                                <a href="{{ route('listeners-requests-show',$el->id)}}" class="btn btn-primary mr-2">
                                                     {{ __('Подробно') }}
                                                 </a>
                                                 <form method="POST" action="{{ route('request-delete') }}">
@@ -119,7 +115,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $data->links() }}
+                        {{-- {{ $data->links() }} --}}
                     </div>
                 </div>
             </div>

@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class AppController extends Controller
 {
+
+    public function home(){
+        return view('home');
+    }
     public function docs(){
         $data=array(
             '42. Правила приема на обучение по программам доп. проф. образования в университете. Утверждены 27.04.2015.pdf',

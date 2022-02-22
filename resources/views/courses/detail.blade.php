@@ -20,15 +20,16 @@
                                     {{ __('Редактировать') }}
                             </a>
                         @endcan
-                        @can('own-request-edit')
+                        @can('listener-own-request-edit')
                             @if($canSubscribe)
                                     <div class="ml-4 btn btn-danger w-full">
                                         <p>{{ __('Вы уже записаны') }}</p>
                                     </div>
                             @endif
                             @if(!$canSubscribe)
-                                <form method="POST" action="{{ route('user-subscribe-request',$data->id) }}">
+                                <form method="POST" action="{{ route('listener-request-create',$data->id) }}">
                                     @csrf
+                                    <input type="hidden" name="course_id" value="{{$data->id}}">
                                     <button class="btn btn-success ml-2"@if($canSubscribe) disabled @endif type="submit">{{ __('Подать заявку') }}</button>
                                 </form>
                             @endif

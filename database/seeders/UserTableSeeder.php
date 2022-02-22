@@ -45,7 +45,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ]);
-        $role=Role::findByName('user');
+        $role=Role::findByName('listener');
         $user->assignRole([$role->id]);
         $user = User::create([
             'name' => 'Иван',

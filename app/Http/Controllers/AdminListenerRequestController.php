@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 
-class ListenerRequestController extends Controller
+class AdminListenerRequestController extends ListenerRequestController
 {
 
     private $listenerRequest = null;
@@ -24,22 +24,10 @@ class ListenerRequestController extends Controller
         return view('admin.request.index',['data'=>$this->listenerRequest->list()]);
     }
 
-    public function store(Request $request){
-        if ($this->listenerRequest->exist($request->course_id)){
-            return redirect()->back()->with('error', 'Вы уже подали заявку на программу');
-        }if ($this->listenerRequest->store($request)){
-            return redirect()->back()->with('success', 'Вы подали заявку на программу');
-        }
-        return redirect()->back()->with('error', 'Не получилось создать заявку');
-    }
-
-    public function detail($request_id)
+    public function show($listenerRequestId)
     {
-        if (Subscribe::where('id',$request_id)->exists()) {
-            $data = Subscribe::with('course')->where('id',$request_id)->first();
-            $userData = User::where('id',$data->user_id)->first();
-            return view('admin.request.detail',['data'=>$data,'userData'=>$userData]);
-        }
+        $this->listenerRequest->checkFirstLook($listenerRequestId);
+        return redirect()->route('listeners-requests')->with('success', '+');
     }
 
     public function delete(Request $request)

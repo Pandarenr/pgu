@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\Request as Subscribe;
+use App\Models\ListenerRequest;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
@@ -12,6 +12,11 @@ use Illuminate\Contracts\View\View;
 
 class CourseController extends Controller
 {
+    private $listenerRequest=null;
+
+    public function __construct(){
+        $this->listenerRequest=new ListenerRequest;
+    }
 
     public function main()
     {
@@ -20,26 +25,26 @@ class CourseController extends Controller
         return view('courses.card',['data'=>$data]);
     }
 
-    public function createRequest($id)
-    {
-        $data=Auth::user();
+    // public function createRequest($id)
+    // {
+    //     $data=Auth::user();
 
-        if (Subscribe::where('user_id', $data->id)->first() && Subscribe::where('course_id', $id)->first()){
-            return redirect()->back()->with('error', 'Вы уже подали заявку на курс ');
-        }
+    //     if (Subscribe::where('user_id', $data->id)->first() && Subscribe::where('course_id', $id)->first()){
+    //         return redirect()->back()->with('error', 'Вы уже подали заявку на курс ');
+    //     }
 
-        $request = Subscribe::create([
-            'name' => $data->name,
-            'second_name' => $data->second_name,
-            'email' => $data->email,
-            'phone' => $data->phone,
-            'age' => $data->age,
-            'user_id' => $data->id,
-            'course_id' => $id,
-        ]);
+    //     $request = Subscribe::create([
+    //         'name' => $data->name,
+    //         'second_name' => $data->second_name,
+    //         'email' => $data->email,
+    //         'phone' => $data->phone,
+    //         'age' => $data->age,
+    //         'user_id' => $data->id,
+    //         'course_id' => $id,
+    //     ]);
 
-        return redirect()->back()->with('success', 'Вы подали заявку на курс ');
-    }
+    //     return redirect()->back()->with('success', 'Вы подали заявку на курс ');
+    // }
 
     public function allCourses()
     {
@@ -120,7 +125,7 @@ class CourseController extends Controller
     {
         $canSubscribe=false;
         if (Auth::user()){
-            if (Subscribe::where('user_id', Auth::user()->id)->first() && Subscribe::where('course_id', $course_id)->first()){
+            if ($this->listenerRequest->exist($course_id)){
                 $canSubscribe=true;
             }
         }
