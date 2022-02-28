@@ -15,8 +15,6 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $data = [
-            'own-course-edit',
-            'course-edit',
             'post-edit',
             'user-edit',
             'listener-request-edit',
