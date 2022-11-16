@@ -20,7 +20,7 @@ class CreateProgramsTable extends Migration
             $table->string('education_form');
             $table->string('duration');
             $table->string('listener_category');
-            $table->string('image');
+            //$table->nullable()->string('main_image');
             $table->foreignId('program_category_id')->constrained('program_categories');
             $table->foreignId('creator_id')->constrained('users');
             $table->timestamps();
@@ -34,6 +34,6 @@ class CreateProgramsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('programs');
     }
 }

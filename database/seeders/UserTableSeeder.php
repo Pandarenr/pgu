@@ -24,11 +24,12 @@ class UserTableSeeder extends Seeder
             'patronymic'=> 'Иванович',
             'gender' => 'Мужской',
             'email' => 'admin@test.test',
+            'birth_date' => '2022-01-01',
             'phone' => 9111111111,
-            'age' => 23,
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'image' => ''
         ]);
         $role=Role::findByName('admin');
         $user->assignRole([$role->id]);
@@ -39,11 +40,12 @@ class UserTableSeeder extends Seeder
             'patronymic'=> 'Иванович',
             'gender' => 'Мужской',
             'email' => 'student@test.test',
+            'birth_date' => '2022-01-01',
             'phone' => 9111321111,
-            'age' => 23,
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'image' => ''
         ]);
         $role=Role::findByName('listener');
         $user->assignRole([$role->id]);
@@ -54,10 +56,11 @@ class UserTableSeeder extends Seeder
             'gender' => 'Мужской',
             'email' => 'admin2@test.test',
             'phone' => 9111111111,
-            'age' => 23,
+            'birth_date' => '2022-01-01',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'image' => ''
         ]);
         $role=Role::findByName('admin');
         $user->assignRole([$role->id]);

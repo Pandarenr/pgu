@@ -18,7 +18,8 @@ class PermissionTableSeeder extends Seeder
             'post-edit',
             'user-edit',
             'listener-request-edit',
-            'listener-own-request-edit'
+            'listener-own-request-edit',
+            'program-edit'
         ];
 
         foreach ($data as $permission) {

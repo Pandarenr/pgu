@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             ['name'=>'ИЗО и МХК'],
             ['name'=>'Информационные технологии'],
         ];
-        DB::table('subjects')->insert($data);
-        \App\Models\Course::factory(15)->create();
+        DB::table('program_categories')->insert($data);
+        \App\Models\Program::factory(15)->create();
+        \App\Models\UserReview::factory(15)->create();
     }
 }

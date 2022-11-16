@@ -1,8 +1,66 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@layer utilities {
+@layer base{
+    input {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    p {
+        @apply text-gray-800;
+        @apply text-base;
+    }
+}
+
+@layer components{
+    .social {
+        width: 63px;
+        height: 63px;
+        background: url(/images/social.jpg) no-repeat;
+        display: inline-block;
+        border-radius: 12px;
+        opacity: 0.6;
+    }
+    .social:hover {
+        opacity: 1;
+    }
+    .form-table-head-field {
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        text-align: left;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        --tw-bg-opacity: 1;
+        background-color: rgba(191, 219, 254, var(--tw-bg-opacity));
+        --tw-border-opacity: 1;
+        border-color: rgba(147, 197, 253, var(--tw-border-opacity));
+        border-bottom-width: 2px;
+    }
+    .form-table-field {
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        text-align: left;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        --tw-bg-opacity: 1;
+        background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+        --tw-border-opacity: 1;
+        border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+        border-bottom-width: 2px;
+    }
     .btn {
         display: inline-block;
         font-weight: 400;
@@ -17,8 +75,14 @@
         padding: .375rem .75rem;
         font-size: 1rem;
         line-height: 1.5;
-        border-radius: .25rem;
+        border-radius: .5rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    .btn-start {
+        border-radius: .5rem 0rem 0rem .5rem;
+    }
+    .btn-end {
+        border-radius: 0rem .5rem .5rem 0rem;
     }
     .btn-danger {
         color: #fff;
@@ -146,5 +210,16 @@
     }
     .alert-dark .alert-link {
         color: #101214
+    }
+}
+
+@layer utilities {
+    .prevent-reposition{
+        padding-left: calc(100vw - 100%);
+    }
+    .fullscreen-container{
+        width: 100vw;
+        position: relative;
+        left: calc(-50vw + 50%);
     }
 }

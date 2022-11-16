@@ -16,7 +16,7 @@ class CreatelistenersRequestsTable extends Migration
         Schema::create('listeners_requests', function (Blueprint $table) {
             $table->id();
             $table->boolean('new')->default(1);
-            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('program_id')->constrained('programs');
             $table->foreignId('user_id')->constrained('users');
             $table->string('documents');
             $table->timestamps();

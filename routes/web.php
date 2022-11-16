@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'AppController@home')->name('home');
 Route::get('/about', 'AppController@about')->name('about');
-Route::get('/about/employees', 'AppController@employees')->name('employees');
-Route::get('/about/goals', 'AppController@goals')->name('goals');
+
 Route::get('/documents', 'DocumentController@index')->name('docs');
+Route::get('/documents/{document_id}','DocumentController@detail')->name('detail-document');
+Route::get('/storage/documents/{document_path}','DocumentController@read')->name('read-document');
 
 Route::prefix('programs')->group(function(){
-    Route::get('/','ProgramController@index')->name('catalog-program');
+    Route::get('/','ProgramController@index')->name('catalog-programs');
     Route::get('/{program_id}','ProgramController@detail')->name('detail-program');
 });
 
@@ -29,36 +30,37 @@ Route::middleware('auth')->group(function(){
         Route::get('/programs/{program_id}/listener-request','ListenerRequestController@showCreateForm')->name('create-form-listener-request');
         Route::post('/programs/{program_id}/listener-request','ListenerRequestController@store')->name('create-listener-request');
 
-        Route::get('/listener-requests','ListenerrequestController@list')->name('list-listener-requests');
+        Route::get('/listener-requests','ListenerRequestController@index')->name('list-listener-requests');
         Route::get('/listener-requests/{listener_request_id}','ListenerRequestController@detail')->name('detail-listener-request');
-        Route::get('/listener-requests/{listener_request_id}/edit','ListenerRequestController@showEditForm')->name('edit-listener-request');
-        Route::post('/listener-requests/{listener_request_id}','ListenerRequestController@save')->name('save-listener-request');
+        Route::get('/listener-requests/{listener_request_id}/edit','ListenerRequestController@showEditForm')->name('edit-form-listener-request');
+        Route::post('/listener-requests/{listener_request_id}','ListenerRequestController@save')->name('edit-listener-request');
         Route::delete('/listener-requests/{listener_request_id}','ListenerRequestController@delete')->name('delete-listener-request');
+
+        Route::get('/user-review','UserReviewController@showCreateForm')->name('create-form-user-review');
+        Route::post('/user-review','UserReviewController@store')->name('create-user-review');
+        Route::get('/user-review/edit','UserReviewController@showEditForm')->name('edit-form-user-review');
+        Route::post('/user-review/edit','UserReviewController@save')->name('edit-user-review');
+        Route::delete('/user-review','UserReviewController@delete')->name('delete-user-review');
+        Route::get('/user-reviews/{user_review_id}','UserReviewController@detail')->name('detail-user-review');
     });
 
-    Route::get('/profile','UserController@userProfile')->name('user-profile');
-    Route::get('/profile/edit','UserController@showEditForm')->name('edit-user-profile');
-    Route::post('/profile/edit','UserController@save')->name('save-user-profile');
-    Route::get('/profile/change-password','UserController@showPasswordEditForm')->name('edit-user-password');
-    Route::post('/profile/change-password','UserController@passwordSave')->name('save-user-password');
+    Route::get('/profile','UserController@userProfile')->name('profile');
+    Route::get('/profile/edit','UserController@showEditForm')->name('edit-profile');
+    Route::post('/profile/edit','UserController@save')->name('save-profile');
+    Route::get('/profile/change-password','UserController@showPasswordEditForm')->name('edit-password');
+    Route::post('/profile/change-password','UserController@passwordSave')->name('save-password');
 });
 
 Route::prefix('admin')->middleware('role:admin')->group(function(){
+    Route::get('/panel','AdminController@index')->name('admin-panel');
+
     Route::get('/programs','AdminProgramController@index')->name('admin-list-programs');
-    Route::get('/programs/create','AdminProgramController@showCreateForm')->name('admin-create-form-program');
+    Route::get('/programs/create','AdminProgramController@create')->name('admin-create-form-program');
     Route::post('/programs/create','AdminProgramController@store')->name('admin-create-program');
     Route::get('/programs/{program_id}','AdminProgramController@detail')->name('admin-detail-program');
-    Route::get('/programs/{program_id}/edit','AdminProgramController@showEditForm')->name('admin-edit-form-program');
+    Route::get('/programs/{program_id}/edit','AdminProgramController@edit')->name('admin-edit-form-program');
     Route::post('/programs/{program_id}/edit','AdminProgramController@save')->name('admin-edit-program');
-    Route::delete('/programs/{program_id}','AdminProgramController@delete')->name('admin-delete-program');
-
-    Route::get('/posts','AdminPostController@index')->name('admin-list-posts');
-    Route::get('/posts/create','AdminPostController@showCreateForm')->name('admin-create-form-post');
-    Route::post('/posts/create','AdminPostController@store')->name('admin-create-post');
-    Route::get('/posts/{post_id}','AdminPostController@detail')->name('admin-detail-post');
-    Route::get('/posts/{post_id}/edit','AdminPostController@showEditForm')->name('admin-edit-form-post');
-    Route::post('/posts/{post_id}/edit','AdminPostController@save')->name('admin-edit-post');
-    Route::delete('/posts/{post_id}','AdminPostController@delete')->name('admin-delete-post');
+    Route::delete('/programs','AdminProgramController@delete')->name('admin-delete-program');
 
     Route::get('/users','AdminUserController@index')->name('admin-list-users');
     Route::get('/users/create','AdminUserController@showCreateForm')->name('admin-create-form-user');
@@ -68,25 +70,12 @@ Route::prefix('admin')->middleware('role:admin')->group(function(){
     Route::post('/users/{user_id}/edit','AdminUserController@save')->name('admin-edit-user');
     Route::delete('/users/{user_id}','AdminUserController@delete')->name('admin-delete-user');
 
-    Route::get('/program-categories','AdminProgramCategoryController@index')->name('admin-list-program-categories');
-    Route::get('/program-categories/create','AdminProgramCategoryController@showCreateForm')->name('admin-create-form-program-category');
-    Route::post('/program-categories/create','AdminProgramCategoryController@store')->name('admin-create-program-category');
-    Route::get('/program-categories/{program_category_id}','AdminProgramCategoryController@detail')->name('admin-detail-program-category');
-    Route::get('/program-categories/{program_category_id}/edit','AdminProgramCategoryController@showEditForm')->name('admin-edit-form-program-category');
-    Route::post('/program-categories/{program_category_id}/edit','AdminProgramCategoryController@save')->name('admin-edit-program-category');
-    Route::delete('/program-categories/{program_category_id}','AdminProgramCategoryController@delete')->name('admin-delete-program-category');
-
     Route::get('/documents','AdminDocumentController@index')->name('admin-list-documents');
-    Route::get('/documents/create','AdminDocumentController@showCreateForm')->name('admin-create-form-document');
-    Route::post('/documents/create','AdminDocumentController@store')->name('admin-create-document');
-    Route::get('/documents/{document_id}','AdminDocumentController@detail')->name('admin-detail-document');
-    Route::get('/documents/{document_id}/edit','AdminDocumentController@showEditForm')->name('admin-edit-form-document');
-    Route::post('/documents/{document_id}/edit','AdminDocumentController@save')->name('admin-edit-document');
+    Route::get('/documents/upload','AdminDocumentController@showUploadForm')->name('admin-upload-form-document');
+    Route::post('/documents/upload','AdminDocumentController@store')->name('admin-upload-document');
     Route::delete('/documents/{document_id}','AdminDocumentController@delete')->name('admin-delete-document');
 
     Route::get('/listeners-requests','AdminListenerRequestController@index')->name('admin-list-listeners-requests');
-    Route::get('/listeners-requests/create','AdminListenerRequestController@showCreateForm')->name('admin-create-form-listener-request');
-    Route::post('/listeners-requests/create','AdminListenerRequestController@store')->name('admin-create-listener-request');
     Route::get('/listeners-requests/{listener_request_id}','AdminListenerRequestController@detail')->name('admin-detail-listener-request');
     Route::get('/listeners-requests/{listener_request_id}/edit','AdminListenerRequestController@showEditForm')->name('admin-edit-form-listener-request');
     Route::post('/listeners-requests/{listener_request_id}/edit','AdminListenerRequestController@save')->name('admin-edit-listener-request');

@@ -3,38 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
 use App\Models\ListenerRequest;
 use App\Models\User;
+use App\Models\Program;
 use Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\View\View;
 
 class ListenerRequestController extends Controller
 {
-
     private $listenerRequest = null;
-    public function __construct()
-    {
+    private $program = null;
+
+    public function __construct(){
         $this->listenerRequest = new ListenerRequest();
+        $this->program = new Program();
     }
 
-    public function index()
-    {
-        return view('admin.request.index',['data'=>$this->listenerRequest->list()]);
+    public function index(){
+        return view('listener-request.index',['data'=>$this->listenerRequest->list()]);
+    }
+
+    public function showCreateForm($program_id){
+        $data=$this->program->where('id',$program_id)->first();
+        return view('listener-request.create',['data'=>$data]);
     }
 
     public function store(Request $request){
-        if ($this->listenerRequest->exist($request->course_id)){
-            return redirect()->back()->with('error', 'Вы уже подали заявку на программу');
+        if ($this->listenerRequest->exist($request->program_id)){
+            return redirect()->route('detail-program',$request->program_id)->with('error', 'Вы уже подали заявку на программу');
         }if ($this->listenerRequest->store($request)){
-            return redirect()->back()->with('success', 'Вы подали заявку на программу');
+            return redirect()->route('detail-program',$request->program_id)->with('success', 'Вы подали заявку на программу');
         }
-        return redirect()->back()->with('error', 'Не получилось создать заявку');
+        return redirect()->route('detail-program',$request->program_id)->with('error', 'Не получилось создать заявку');
     }
 
-    public function detail($request_id)
-    {
+    public function detail($request_id){
         if (Subscribe::where('id',$request_id)->exists()) {
             $data = Subscribe::with('course')->where('id',$request_id)->first();
             $userData = User::where('id',$data->user_id)->first();
@@ -42,8 +47,7 @@ class ListenerRequestController extends Controller
         }
     }
 
-    public function delete(Request $request)
-    {
+    public function delete(Request $request){
         if (!$request->get('id')) {
             return back()->withErrors('Ошибка сервера... Попробуйте снова.');
         }

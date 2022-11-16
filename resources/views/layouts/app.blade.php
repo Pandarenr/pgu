@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="prevent-reposition">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <title>{{ config('app.name', 'Laravel') }} {{ $title }}</title>
 
         <!-- Fonts -->
@@ -17,12 +16,13 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-white">
-            @include('layouts.navigation')
+        <div class="b-color-main">
+            @include('parts.menu.navigation')
             <!-- Page Content -->
-            <main>
+            <main class="container max-w-7xl mx-auto relative">
                 {{ $slot }}
             </main>
         </div>
     </body>
+    @include('parts.footer')
 </html>

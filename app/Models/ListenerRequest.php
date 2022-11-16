@@ -14,13 +14,13 @@ class ListenerRequest extends Model
     protected $table = 'listeners_requests';
     protected $fillable=[
         'new',
-        'course_id',
+        'program_id',
         'user_id',
         'documents'
     ];
 
-    public function course() {
-        return $this->belongsTo(\App\Models\Course::class, 'course_id');
+    public function program() {
+        return $this->belongsTo(\App\Models\Program::class, 'program_id');
     }
 
     public function user() {
@@ -29,13 +29,10 @@ class ListenerRequest extends Model
 
     public function list() {
         if(Auth::user()->hasRole('admin')){
-            $data=$this->with('course','user')->get();
-            foreach ($data as $el){
-                $el->created_at=$el->created_at->format('d.m.Y');
-            }
+            $data=$this->with('program','user')->get();
             return $data;
         }else{
-            $data=$this->with('course','user')->where('user_id',Auth::user()->id)->get();
+            $data=$this->with('program')->where('user_id',Auth::user()->id)->get();
             return $data;
         }
         return abort(403,'Нет прав доступа');
@@ -54,26 +51,25 @@ class ListenerRequest extends Model
         $data=[
             'new'=>1,
             'user_id'=>Auth::user()->id,
-            'course_id'=>$request->course_id,
+            'program_id'=>$request->program_id,
             'documents'=>'something',
         ];
-        // $this->new=1;
-        // $this->user_id=Auth::user()->id;
-        // $this->course_id=$request->course_id;
-        // $this->documents='something';
         $result=($this->create($data) ? true : false);
         return $result;
     }
 
-    public function exist(int $course_id) {
-        $result=($this->where([
-                ['user_id', Auth::user()->id],
-                ['course_id', $course_id]
-            ])->first() ? true : false);
-        return $result;
+    public function validate($request) {
+
     }
 
-    public function convertCreateDate(int $date,string $format) {
-        $convertedDate=$date->format($format);
+    public function exist(int $program_id) {
+        if(!Auth::check()){
+            return false;
+        }
+        $result=($this->where([
+                ['user_id', Auth::user()->id],
+                ['program_id', $program_id]
+            ])->first() ? true : false);
+        return $result;
     }
 }

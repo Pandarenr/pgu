@@ -10,28 +10,24 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 
-class AdminListenerRequestController extends ListenerRequestController
+class AdminListenerRequestController extends Controller
 {
-
     private $listenerRequest = null;
-    public function __construct()
-    {
+
+    public function __construct(){
         $this->listenerRequest = new ListenerRequest();
     }
 
-    public function index()
-    {
-        return view('admin.request.index',['data'=>$this->listenerRequest->list()]);
+    public function index(){
+        return view('admin.request.index',['data'=>$this->listenerRequest->adminList()]);
     }
 
-    public function show($listenerRequestId)
-    {
+    public function show($listenerRequestId){
         $this->listenerRequest->checkFirstLook($listenerRequestId);
         return redirect()->route('listeners-requests')->with('success', '+');
     }
 
-    public function delete(Request $request)
-    {
+    public function delete(Request $request){
         if (!$request->get('id')) {
             return back()->withErrors('Ошибка сервера... Попробуйте снова.');
         }
