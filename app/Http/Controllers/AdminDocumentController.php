@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Http\Requests\UploadDocumentRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminDocumentController extends Controller
@@ -25,21 +26,22 @@ class AdminDocumentController extends Controller
     }
 
     public function store(UploadDocumentRequest $request){
-        if($validatedRequest=$request->validated()){
-            $create = $this->documentModel->create([
-                'path' => $request->file('uploaded_document')->store('public/documents'),
-                'title' => $request->title,
-                'description' => $request->description,
-                'number_of_lists' => $request->number_of_lists
-            ]);
-        }
-        if($create){
-            return redirect()->route('admin-list-documents')->with('success','Документ загружен');
-        }
-        return abort(404);
+        $validated = $request->validated();
+        $validated['path'] = $request->file('uploaded_document')->store('public/documents');
+        $upload = $this->documentModel->create($validated);
+        return dd($upload);
+        // if($create){
+        //     return redirect()->route('admin-list-documents')->with('success','Документ загружен');
+        // }
+        // return abort(404);
     }
 
     public function delete($id){
-
+        $document = $this->documentModel->find($id);
+        if($document){
+            $document->delete();
+            Storage::delete($document->path);
+        }
+        return redirect()->back();
     }
 }

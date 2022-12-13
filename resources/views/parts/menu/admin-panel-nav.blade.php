@@ -1,4 +1,4 @@
-<div class="w-60">
+<div class="w-60 shrink-0">
     <x-nav.admin-panel-nav-link href="{{route('admin-list-programs')}}" :active="request()->routeIs('admin-list-programs')">
         <div class="mx-3 w-6 h-6 flex justify-left content-center">
             @include('parts.svg.program')

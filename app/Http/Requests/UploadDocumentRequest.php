@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UploadDocumentRequest extends FormRequest
 {
@@ -21,13 +22,22 @@ class UploadDocumentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
+        $rules = [
             'title' => ['required','string','max:150'],
             'description' => ['nullable','string','max:1000'],
             'number_of_lists' => ['required','numeric','max:100'],
             'uploaded_document' => ['required','file','mimes:pdf,doc,docx','max:102400']
         ];
+
+        switch ($this->getMethod()){
+            case 'POST':
+                return $rules;
+            case 'DELETE':
+                return [
+                    'id'=>'requared|integer|exists:documents,id'
+                ];
+        }
     }
 }

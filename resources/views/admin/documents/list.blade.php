@@ -6,37 +6,31 @@
         @include('parts.message')
         <div class="flex">
             @include('parts.menu.admin-panel-nav')
-            <div class="min-w-full">
-                {{-- <div class="pt-4 flex justify-between">
-                    <h2 class="text-gray-600 font-semibold">
-                        Список программ ДО
-                    </h2>
+            <div class="w-full">
+                <div class="">
                     <div>
-                        <a href="{{route('admin-panel')}}" class="btn btn-primary btn-start">
-                            {{ __('Назад') }}
-                        </a>
-                        <a href="{{route('admin-upload-form-document')}}" class="btn btn-primary btn-end">
+                        <a href="{{route('admin-upload-form-document')}}" class="btn btn-primary">
                             {{ __('Загрузить') }}
                         </a>
                     </div>
                 </div>
-                <div class="inline-block min-w-full overflow-hidden">
-                    <table class="min-w-full leading-normal">
+                <div class="">
+                    <table class="">
                         <thead>
                             <tr>
-                                <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="">
                                     Название
                                 </th>
-                                <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="">
                                     Описание
                                 </th>
-                                <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="">
                                     Кол-во страниц
                                 </th>
-                                <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="">
                                     Дата размещения
                                 </th>
-                                <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="">
                                     Действия
                                 </th>
                             </tr>
@@ -44,35 +38,23 @@
                         <tbody>
                             @foreach($documents as $document)
                                 <tr>
-                                    <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
-                                        <p class="text-gray-900 whitespace-no-wrap">
-                                            {{ $document->title }}
-                                        </p>
+                                    <td class="">
+                                        {{ $document->title }}
                                     </td>
-                                    <td class="py-5 border-b border-gray-200 bg-white text-sm items-center ">
-                                        <p class="text-gray-900 whitespace-no-wrap overflow-hidden h-10">
-                                            {{ $document->description }}
-                                        </p>
+                                    <td class=" ">
+                                        {{ $document->description }}
                                     </td>
-                                    <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
-                                        <p class="text-gray-900 whitespace-no-wrap">
-                                            {{ $document->number_of_lists }}
-                                        </p>
+                                    <td class="">
+                                        {{ $document->number_of_lists }}
                                     </td>
-                                    <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
-                                        <p class="text-gray-900 whitespace-no-wrap">
-                                            {{ $document->created_at }}
-                                        </p>
+                                    <td class="">
+                                        {{ $document->created_at }}
                                     </td>
-                                    <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
+                                    <td class="">
                                         <div class="flex">
-                                            <a href="{{route('detail-document',basename($document->path))}}" class="btn btn-primary mr-2">
-                                                {{ __('Подробно') }}
-                                            </a>
-                                            <form method="POST" action="{{ route('admin-delete-document',$document->id) }}">
+                                            <form method="POST" action="{{ route('admin-delete-document', $document->id) }}">
                                                 @csrf
                                                 {{ method_field('DELETE') }}
-                                                <input type="hidden" name="id" value="{{ $document->id }}">
                                                 <button class="btn btn-danger"  type="submit">
                                                     {{ __('Удалить') }}
                                                 </button>
@@ -84,7 +66,7 @@
                         </tbody>
                     </table>
                     {{ $documents->links() }}
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
