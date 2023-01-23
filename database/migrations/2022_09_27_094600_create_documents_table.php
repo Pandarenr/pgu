@@ -17,7 +17,6 @@ class CreateDocumentsTable extends Migration
             $table->id();
             $table->string('path');
             $table->string('title');
-            $table->string('description');
             $table->smallInteger('number_of_lists');
             $table->timestamps();
         });

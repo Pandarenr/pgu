@@ -18,10 +18,10 @@ class AdminDocumentController extends Controller
 
     public function index(){
         $documents = $this->documentModel->paginate(10);
-        return view('admin.documents.list',['documents' => $documents]);
+        return view('admin.documents.index',['documents' => $documents]);
     }
 
-    public function showUploadForm(){
+    public function uploadForm(){
         return view('admin.documents.uploadForm');
     }
 
@@ -29,18 +29,17 @@ class AdminDocumentController extends Controller
         $validated = $request->validated();
         $validated['path'] = $request->file('uploaded_document')->store('public/documents');
         $upload = $this->documentModel->create($validated);
-        return dd($upload);
-        // if($create){
-        //     return redirect()->route('admin-list-documents')->with('success','Документ загружен');
-        // }
-        // return abort(404);
+        if($upload){
+            return redirect()->route('admin-index-documents')->with('success','Документ загружен');
+        }
+        return abort(404);
     }
 
     public function delete($id){
         $document = $this->documentModel->find($id);
         if($document){
+            $deleted=Storage::delete($document->path);
             $document->delete();
-            Storage::delete($document->path);
         }
         return redirect()->back();
     }

@@ -11,10 +11,6 @@
                 <x-input id="title" name="title" type="text" value="" requared />
             </div>
             <div>
-                <x-label for="description" :value="__('Описание')" />
-                <x-textarea id="description" name="description" type="text" />
-            </div>
-            <div>
                 <x-label for="number_of_lists" :value="__('Количество листов')" />
                 <x-input id="number_of_lists" name="number_of_lists" type="text" value="" requared />
             </div>

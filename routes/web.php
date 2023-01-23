@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'AppController@home')->name('home');
 Route::get('/about', 'AppController@about')->name('about');
 
-Route::get('/documents', 'DocumentController@index')->name('docs');
-Route::get('/documents/{document_id}','DocumentController@detail')->name('detail-document');
+Route::get('/documents', 'DocumentController@index')->name('index-documents');
 Route::get('/storage/documents/{document_path}','DocumentController@read')->name('read-document');
+Route::get('/storage/documents/download/{document_path}','DocumentController@download')->name('download-document');
 
 Route::prefix('programs')->group(function(){
     Route::get('/','ProgramController@index')->name('catalog-programs');
@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function(){
 Route::prefix('admin')->middleware('role:admin')->group(function(){
     Route::get('/panel','AdminController@index')->name('admin-panel');
 
-    Route::get('/programs','AdminProgramController@index')->name('admin-list-programs');
+    Route::get('/programs','AdminProgramController@index')->name('admin-index-programs');
     Route::get('/programs/create','AdminProgramController@create')->name('admin-create-form-program');
     Route::post('/programs/create','AdminProgramController@store')->name('admin-create-program');
     Route::get('/programs/{program_id}','AdminProgramController@detail')->name('admin-detail-program');
@@ -62,7 +62,7 @@ Route::prefix('admin')->middleware('role:admin')->group(function(){
     Route::post('/programs/{program_id}/edit','AdminProgramController@save')->name('admin-edit-program');
     Route::delete('/programs','AdminProgramController@delete')->name('admin-delete-program');
 
-    Route::get('/users','AdminUserController@index')->name('admin-list-users');
+    Route::get('/users','AdminUserController@index')->name('admin-index-users');
     Route::get('/users/create','AdminUserController@showCreateForm')->name('admin-create-form-user');
     Route::post('/users/create','AdminUserController@store')->name('admin-create-user');
     Route::get('/users/{user_id}','AdminUserController@detail')->name('admin-detail-user');
@@ -70,8 +70,8 @@ Route::prefix('admin')->middleware('role:admin')->group(function(){
     Route::post('/users/{user_id}/edit','AdminUserController@save')->name('admin-edit-user');
     Route::delete('/users/{user_id}','AdminUserController@delete')->name('admin-delete-user');
 
-    Route::get('/documents','AdminDocumentController@index')->name('admin-list-documents');
-    Route::get('/documents/upload','AdminDocumentController@showUploadForm')->name('admin-upload-form-document');
+    Route::get('/documents','AdminDocumentController@index')->name('admin-index-documents');
+    Route::get('/documents/upload','AdminDocumentController@uploadForm')->name('admin-upload-form-document');
     Route::post('/documents/upload','AdminDocumentController@store')->name('admin-upload-document');
     Route::delete('/documents/{document_id}','AdminDocumentController@delete')->name('admin-delete-document');
 

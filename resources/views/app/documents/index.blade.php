@@ -5,17 +5,17 @@
         <table class="min-w-full leading-normal">
             <thead>
                 <tr>
-                    <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th class="">
                         Название
                     </th>
-                    <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Описание
-                    </th>
-                    <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th class="">
                         Кол-во страниц
                     </th>
-                    <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th class="">
                         Дата размещения
+                    </th>
+                    <th class="">
+                        Действия
                     </th>
                 </tr>
             </thead>
@@ -25,11 +25,6 @@
                         <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
                             <p class="text-gray-900 whitespace-no-wrap">
                                 {{ $document->title }}
-                            </p>
-                        </td>
-                        <td class="py-5 border-b border-gray-200 bg-white text-sm items-center ">
-                            <p class="text-gray-900 whitespace-no-wrap overflow-hidden h-10">
-                                {{ $document->description }}
                             </p>
                         </td>
                         <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
@@ -44,8 +39,11 @@
                         </td>
                         <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
                             <div class="flex">
-                                <a href="{{route('detail-document',basename($document->id))}}" class="btn btn-primary mr-2">
-                                    {{ __('Подробно') }}
+                                <a href="{{route('read-document',$document->id)}}" class="btn btn-primary mx-2">
+                                    {{ __('Просмотреть') }}
+                                </a>
+                                <a href="{{route('download-document',$document->id)}}" class="btn btn-primary mx-2">
+                                    {{ __('Скачать') }}
                                 </a>
                             </div>
                         </td>

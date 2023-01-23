@@ -12,7 +12,6 @@ class Document extends Model
     protected $fillable = [
         'title',
         'path',
-        'description',
         'number_of_lists'
     ];
 }

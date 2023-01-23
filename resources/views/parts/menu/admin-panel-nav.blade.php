@@ -1,26 +1,20 @@
 <div class="w-60 shrink-0">
-    <x-nav.admin-panel-nav-link href="{{route('admin-list-programs')}}" :active="request()->routeIs('admin-list-programs')">
-        <div class="mx-3 w-6 h-6 flex justify-left content-center">
+    <x-nav.admin-panel-nav-link href="{{route('admin-index-programs')}}" :active="request()->routeIs('admin-index-programs')">
+        <div class="mr-3 w-6 h-6 flex justify-left content-center">
             @include('parts.svg.program')
         </div>
-        Education Programs
+        Программы ДО
     </x-nav.admin-panel-nav-link>
-    <x-nav.admin-panel-nav-link href="{{route('admin-list-users')}}" :active="request()->routeIs('admin-list-users')">
-        <div class="mx-3 w-6 h-6 flex justify-left content-center">
+    <x-nav.admin-panel-nav-link href="{{route('admin-index-users')}}" :active="request()->routeIs('admin-index-users')">
+        <div class="mr-3 w-6 h-6 flex justify-left content-center">
             @include('parts.svg.users')
         </div>
-        Users
+        Пользователи
     </x-nav.admin-panel-nav-link>
-    <x-nav.admin-panel-nav-link href="{{route('admin-list-documents')}}" :active="request()->routeIs('admin-list-documents')">
-        <div class="mx-3 w-6 h-6 flex justify-left content-center">
+    <x-nav.admin-panel-nav-link href="{{route('admin-index-documents')}}" :active="request()->routeIs('admin-index-documents')">
+        <div class="mr-3 w-6 h-6 flex justify-left content-center">
             @include('parts.svg.document')
         </div>
-        Documents
-    </x-nav.admin-panel-nav-link>
-    <x-nav.admin-panel-nav-link href="{{route('admin-list-listeners-requests')}}" :active="request()->routeIs('admin-list-listeners-requests')">
-        <div class="mx-3 w-6 h-6 flex justify-left content-center">
-            @include('parts.svg.newspaper')
-        </div>
-        News
+        Документы
     </x-nav.admin-panel-nav-link>
 </div>

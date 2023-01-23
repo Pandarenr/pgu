@@ -8,7 +8,7 @@
     <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
         {{ __('О центре') }}
     </x-nav-link>
-    <x-nav-link :href="route('docs')" :active="request()->routeIs('docs')">
+    <x-nav-link :href="route('index-documents')" :active="request()->routeIs('index-documents')">
         {{ __('Документы') }}
     </x-nav-link>
 </div>

@@ -1,25 +1,23 @@
-<x-app-layout>
+<x-admin-panel-layout>
     <x-slot name="title">
         {{__('Управление курсами')}}
     </x-slot>
 
-    @include('parts.message')
-
-    <div class="pt-4 flex justify-between">
-        <h2 class="text-gray-600 font-semibold">
-            Список программ ДО
-        </h2>
-        <div>
-            <a href="{{route('admin-panel')}}" class="btn btn-primary btn-start">
-                {{ __('Назад') }}
-            </a>
-            <a href="{{route('admin-create-form-program')}}" class="btn btn-primary btn-end">
-                {{ __('Создать') }}
-            </a>
+    <div class="w-full">
+        <div class="pt-4 flex justify-between">
+            <h2 class="text-gray-600 font-semibold">
+                Список программ ДО
+            </h2>
+            <div>
+                <a href="{{route('admin-panel')}}" class="btn btn-primary btn-start">
+                    {{ __('Назад') }}
+                </a>
+                <a href="{{route('admin-create-form-program')}}" class="btn btn-primary btn-end">
+                    {{ __('Создать') }}
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="inline-block min-w-full overflow-hidden">
-        <table class="min-w-full leading-normal">
+        <table>
             <thead>
                 <tr>
                     <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -76,6 +74,17 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $programs->links() }}
+        <div class="flex">
+            <div class="flex-1">
+            </div>
+            <div class="flex-1">
+                {{ $programs->links() }}
+            </div>
+            <div class="flex flex-1 justify-end items-center">
+                <a href="{{route('admin-create-form-program')}}" class="btn btn-primary justify-end">
+                    {{ __('Наверх') }}
+                </a>
+            </div>
+        </div>
     </div>
-</x-app-layout>
+</x-admin-panel-layout>

@@ -26,7 +26,6 @@ class UploadDocumentRequest extends FormRequest
     {
         $rules = [
             'title' => ['required','string','max:150'],
-            'description' => ['nullable','string','max:1000'],
             'number_of_lists' => ['required','numeric','max:100'],
             'uploaded_document' => ['required','file','mimes:pdf,doc,docx','max:102400']
         ];
