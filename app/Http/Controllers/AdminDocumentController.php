@@ -30,7 +30,6 @@ class AdminDocumentController extends Controller
         $storePatch = $request->file('uploaded_document')->store('public/documents');
         $validated['path'] = $storePatch;
         $upload = $this->documentModel->create($validated);
-        return dd($upload);
         if($upload){
             return redirect()->route('admin-index-documents')->with('success','Документ загружен');
         }
