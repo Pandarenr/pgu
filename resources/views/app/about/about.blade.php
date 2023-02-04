@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">О нас</x-slot>
-    <div class="mt-8 p-4 border-x border-gray-200 rounded-lg shadow-sm">
+    <div class="mt-8">
         <h1 class="text-2xl font-bold my-2">
             Основная информация
         </h1>
