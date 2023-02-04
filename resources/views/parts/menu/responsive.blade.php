@@ -4,7 +4,7 @@
         <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
             {{ __('Главная') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('catalog-programs')" :active="request()->routeIs('catalog-programs')">
+        <x-responsive-nav-link :href="route('programs-index')" :active="request()->routeIs('programs-index')">
             {{ __('Программы ДО') }}
         </x-responsive-nav-link>
         <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')">
@@ -18,24 +18,9 @@
         <!-- Responsive Settings Options -->
         <div class="w-full absolute bg-white z-50 pt-4 pb-1 border-t border-gray-100">
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')">
+                <x-responsive-nav-link :href="route('profile-detail')">
                     {{ Auth::user()->name }} {{ Auth::user()->second_name }}
                 </x-responsive-nav-link>
-                @can('course-edit')
-                    <x-responsive-nav-link :href="route('admin-list-programs')">
-                        {{ __('Программы ДО') }}
-                    </x-responsive-nav-link>
-                @endcan
-                @can('listener-own-request-edit')
-                    <x-responsive-nav-link :href="route('list-listener-requests')">
-                        {{ __('Мои заявки') }}
-                    </x-responsive-nav-link>
-                @endcan
-                @can('listener-request-edit')
-                    <x-responsive-nav-link :href="route('admin-list-listeners-requests')">
-                        {{ __('Заявки') }}
-                    </x-responsive-nav-link>
-                @endcan
             </div>
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->

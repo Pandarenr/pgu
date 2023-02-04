@@ -12,19 +12,16 @@
                 </button>
             </x-slot>
             <x-slot name="content">
-                <x-dropdown-link :href="route('profile')">
+                <x-dropdown-link :href="route('profile-detail')">
                     {{ __('Личный кабинет') }}
                 </x-dropdown-link>
                 @can('listener-own-request-edit')
-                    <x-dropdown-link :href="route('list-listener-requests')">
-                        {{ __('Мои заявки') }}
-                    </x-dropdown-link>
                     @if(Auth::user()->haveReview())
-                        <x-dropdown-link :href="route('edit-form-user-review')">
+                        <x-dropdown-link :href="route('review-edit')">
                             {{ __('Изменить отзыв') }}
                         </x-dropdown-link>
                     @else
-                        <x-dropdown-link :href="route('create-form-user-review')">
+                        <x-dropdown-link :href="route('review-create')">
                             {{ __('Оставить отзыв') }}
                         </x-dropdown-link>
                     @endif

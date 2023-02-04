@@ -28,6 +28,23 @@
         vertical-align: top;
         border-color: #dee2e6;
     }
+    thead {
+        @apply border-b;
+    }
+    th {
+        @apply text-sm;
+        @apply font-medium;
+        @apply text-center;
+        @apply px-6;
+        @apply py-4;
+    }
+    td {
+        @apply text-sm;
+        @apply font-medium;
+        @apply text-center;
+        @apply px-6;
+        @apply py-4;
+    }
 }
 
 @layer components{

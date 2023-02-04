@@ -39,10 +39,10 @@
                         </td>
                         <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
                             <div class="flex">
-                                <a href="{{route('read-document',$document->id)}}" class="btn btn-primary mx-2">
+                                <a href="{{route('document-open',$document->id)}}" class="btn btn-primary mx-2">
                                     {{ __('Просмотреть') }}
                                 </a>
-                                <a href="{{route('download-document',$document->id)}}" class="btn btn-primary mx-2">
+                                <a href="{{route('document-download',$document->id)}}" class="btn btn-primary mx-2">
                                     {{ __('Скачать') }}
                                 </a>
                             </div>

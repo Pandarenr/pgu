@@ -4,7 +4,7 @@
     </x-slot>
 
     <div class="py-4">
-        <form method="POST" action="{{route('admin-upload-document')}}" enctype="multipart/form-data">
+        <form method="POST" action="{{route('admin-document-store')}}" enctype="multipart/form-data">
             @csrf
             <div>
                 <x-label for="title" :value="__('Название')" />

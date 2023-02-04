@@ -27,7 +27,7 @@ class UploadDocumentRequest extends FormRequest
         $rules = [
             'title' => ['required','string','max:150'],
             'number_of_lists' => ['required','numeric','max:100'],
-            'uploaded_document' => ['required','file','mimes:pdf,doc,docx','max:102400']
+            'uploaded_document' => ['required','file','mimes:txt,pdf,doc,docx','max:102400']
         ];
 
         switch ($this->getMethod()){

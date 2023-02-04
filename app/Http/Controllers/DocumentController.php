@@ -19,13 +19,13 @@ class DocumentController extends Controller
         return view('app.documents.index',['documents' => $documents]);
     }
 
-    public function read($id){
-        $document = $this->documentModel->where('id',$id)->first();
-        return redirect(Storage::url($document->path));
+    public function open($id){
+        $document = $this->documentModel->where('id',$id)->first();        
+        return response()->file(storage_path('app/'.$document->path));
     }
 
     public function download($id){
-        $document = $this->documentModel->where('id',$id)->first();
+        $document = $this->documentModel->where('id',$id)->first();        
         return Storage::download($document->path);
     }
 }
