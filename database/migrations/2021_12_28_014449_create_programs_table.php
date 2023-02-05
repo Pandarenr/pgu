@@ -17,12 +17,11 @@ class CreateProgramsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('education_form');
             $table->string('duration');
-            $table->string('listener_category');
-            //$table->nullable()->string('main_image');
+            $table->string('main_image')->nullable();
             $table->foreignId('program_category_id')->constrained('program_categories');
-            $table->foreignId('creator_id')->constrained('users');
+            $table->foreignId('education_form_id')->constrained('education_forms');
+            $table->foreignId('listener_category_id')->constrained('listener_categories');
             $table->timestamps();
         });
     }

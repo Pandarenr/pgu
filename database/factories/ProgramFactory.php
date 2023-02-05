@@ -17,11 +17,10 @@ class ProgramFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(400),
-            'education_form' => $this->faker->name(),
+            'education_form_id' => $this->faker->numberBetween(1,2),
             'duration' => $this->faker->name(),
-            'listener_category' => $this->faker->name(),
+            'listener_category_id' => $this->faker->numberBetween(1,2),
             'program_category_id' => $this->faker->numberBetween(1,4),
-            'creator_id' => 1
         ];
     }
 }
