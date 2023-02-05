@@ -45,5 +45,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $data->links() }}
     </div>
 </x-admin-panel-layout>
