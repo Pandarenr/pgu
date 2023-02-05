@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">Программа "{{$data->name}}"</x-slot>
-    @include('common.message')
+    @include('parts.message')
     <div class="relative sm:flex justify-center items-center">
         <div class="mb-4">
             <img class="rounded-md" src="/images/univ-main.jpg" alt="brad" />
@@ -13,30 +13,14 @@
                 {{$data->education_form}}
             </h3>
             <div class="pt-6 flex">
-                <a href="{{route('catalog-programs')}}" class="btn btn-primary">
+                <a href="{{route('programs-index')}}" class="btn btn-primary">
                     {{ __('Назад') }}
                 </a>
                 @can('program-edit')
-                    <a href="{{route('admin-edit-form-program',$data->id)}}" class="btn btn-success">
+                    <a href="{{route('admin-program-edit',$data->id)}}" class="btn btn-success">
                         {{ __('Редактировать') }}
                     </a>
-                @endcan
-                @guest
-                    <a href="{{route('login')}}" class="btn btn-success ml-2">
-                        {{ __('Подать заявку') }}
-                    </a>
-                @endguest
-                @can('listener-own-request-edit')
-                    @if($canSubscribe)
-                        <div class="ml-4 btn btn-danger">
-                            {{ __('Вы уже записаны') }}
-                        </div>
-                    @else
-                        <a href="{{route('create-form-listener-request',$data->id)}}" class="btn btn-success ml-2">
-                            {{ __('Подать заявку') }}
-                        </a>
-                    @endif
-                @endcan
+                @endcan            
             </div>
         </div>
     </div>

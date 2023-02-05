@@ -20,8 +20,8 @@ class ProgramController extends Controller
 
     public function index()
     {
-        $data = Program::paginate(8);
-        return view('app.programs',['data'=>$data]);
+        $data = Program::paginate(9);
+        return view('app.program.index',['data'=>$data]);
     }
 
     public function detail(int $program_id)
@@ -32,7 +32,7 @@ class ProgramController extends Controller
         }
         if (Program::where('id',$program_id)->exists()) {
             $data = Program::where('id',$program_id)->with('programCategory')->first();
-            return view('app.program-detail',['data'=>$data,'canSubscribe'=>$canSubscribe]);
+            return view('app.program.detail',['data'=>$data,'canSubscribe'=>$canSubscribe]);
         }
     }
 }
