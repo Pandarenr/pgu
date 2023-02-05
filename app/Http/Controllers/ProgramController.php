@@ -12,11 +12,6 @@ use Auth;
 
 class ProgramController extends Controller
 {
-    private $listenerRequest=null;
-
-    public function __construct(){
-        $this->listenerRequest=new ListenerRequest;
-    }
 
     public function index()
     {
@@ -26,13 +21,9 @@ class ProgramController extends Controller
 
     public function detail(int $program_id)
     {
-        $canSubscribe=false;
-        if ($this->listenerRequest->exist($program_id)){
-            $canSubscribe=true;
-        }
         if (Program::where('id',$program_id)->exists()) {
             $data = Program::where('id',$program_id)->with('programCategory')->first();
-            return view('app.program.detail',['data'=>$data,'canSubscribe'=>$canSubscribe]);
+            return view('app.program.detail',['data'=>$data]);
         }
     }
 }

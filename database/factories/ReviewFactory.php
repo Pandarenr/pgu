@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EducationFormFactory extends Factory
+class ReviewFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,10 @@ class EducationFormFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'text' => $this->faker->text(30),
+            'user_id' => 3,
+            'moderated' => 1,
+            'rating' => $this->faker->numberBetween(1,5)
         ];
     }
 }

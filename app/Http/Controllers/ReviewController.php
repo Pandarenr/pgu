@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\UserReview;
 use Auth;
 
-class UserReviewController extends Controller
+class ReviewController extends Controller
 {
     private $userReview;
 

@@ -9,10 +9,13 @@
                 Список программ ДО
             </h2>
             <div>
+                <a href="{{ route('admin-educationforms-index') }}" class="btn btn-primary">
+                    Формы обучения
+                </a>
                 <a href="{{route('admin-panel')}}" class="btn btn-primary btn-start">
                     {{ __('Назад') }}
                 </a>
-                <a href="{{route('admin-create-form-program')}}" class="btn btn-primary btn-end">
+                <a href="{{route('admin-program-create')}}" class="btn btn-primary btn-end">
                     {{ __('Создать') }}
                 </a>
             </div>
@@ -37,30 +40,24 @@
             <tbody>
                 @foreach($programs as $program)
                     <tr>
-                        <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                                {{ $program->name }}
-                            </p>
+                        <td>
+                            {{ $program->name }}
                         </td>
-                        <td class="py-5 border-b border-gray-200 bg-white text-sm items-center ">
-                            <p class="text-gray-900 whitespace-no-wrap overflow-hidden h-10">
-                                {{ $program->description }}
-                            </p>
+                        <td>
+                            {{ $program->description }}
                         </td>
-                        <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                                {{ $program->programCategory->name }}
-                            </p>
+                        <td>
+                            {{ $program->programCategory->name }}
                         </td>
-                        <td class="py-5 border-b border-gray-200 bg-white text-sm items-center">
+                        <td>
                             <div class="flex">
-                                <a href="{{route('admin-edit-program',$program->id)}}" class="btn btn-success mr-2">
+                                <a href="{{route('admin-program-edit',$program->id)}}" class="btn btn-success mr-2">
                                     {{ __('Редактировать') }}
                                 </a>
                                 <a href="\program\{{$program->id}}" class="btn btn-primary mr-2">
                                     {{ __('Подробно') }}
                                 </a>
-                                <form method="POST" action="{{ route('admin-delete-program') }}">
+                                <form method="POST" action="{{ route('admin-program-delete',$program->id) }}">
                                     @csrf
                                     {{ method_field('DELETE') }}
                                     <input type="hidden" name="id" value="{{ $program->id }}">
@@ -81,7 +78,7 @@
                 {{ $programs->links() }}
             </div>
             <div class="flex flex-1 justify-end items-center">
-                <a href="{{route('admin-create-form-program')}}" class="btn btn-primary justify-end">
+                <a href="#" class="btn btn-primary justify-end">
                     {{ __('Наверх') }}
                 </a>
             </div>

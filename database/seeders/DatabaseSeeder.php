@@ -27,7 +27,10 @@ class DatabaseSeeder extends Seeder
             ['name'=>'Информационные технологии'],
         ];
         DB::table('program_categories')->insert($data);
+        
+        \App\Models\Review::factory(15)->create();
+        \App\Models\EducationForm::factory(4)->create();
+        \App\Models\ListenerCategory::factory(4)->create();
         \App\Models\Program::factory(15)->create();
-        \App\Models\UserReview::factory(15)->create();
     }
 }

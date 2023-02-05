@@ -56,6 +56,27 @@ Route::prefix('admin')->middleware('role:admin')->group(function(){
     Route::post('/programs/{program_id}/edit','Admin\AdminProgramController@save')->name('admin-program-save');
     Route::delete('/programs/{program_id}','Admin\AdminProgramController@delete')->name('admin-program-delete');
 
+    Route::get('/education-forms','Admin\AdminEducationFormController@index')->name('admin-educationforms-index');
+    Route::get('/education-forms/create','Admin\AdminEducationFormController@create')->name('admin-educationform-create');
+    Route::post('/education-forms/create','Admin\AdminEducationFormController@store')->name('admin-educationform-store');
+    Route::get('/education-forms/{education_form_id}','Admin\AdminEducationFormController@edit')->name('admin-educationform-edit');
+    Route::post('/education-forms/{education_form_id}','Admin\AdminEducationFormController@save')->name('admin-educationform-save');
+    Route::post('/education-forms/delete/{education_form_id}','Admin\AdminEducationFormController@delete')->name('admin-educationform-delete');
+
+    Route::get('/listener-categories','Admin\AdminListenerCategoryController@index')->name('admin-listenercategories-index');
+    Route::get('/listener-categories/create','Admin\AdminListenerCategoryController@create')->name('admin-listenercategory-create');
+    Route::post('/listener-categories/create','Admin\AdminListenerCategoryController@store')->name('admin-listenercategory-store');
+    Route::get('/listener-categories/{education_form_id}','Admin\AdminListenerCategoryController@edit')->name('admin-listenercategory-edit');
+    Route::post('/listener-categories/{education_form_id}','Admin\AdminListenerCategoryController@save')->name('admin-listenercategory-save');
+    Route::delete('/listener-categories/{education_form_id}','Admin\AdminListenerCategoryController@delete')->name('admin-listenercategory-delete');
+
+    Route::get('/program-categories','Admin\AdminProgramCategoryController@index')->name('admin-programcategories-index');
+    Route::get('/program-categories/create','Admin\AdminProgramCategoryController@create')->name('admin-programcategory-create');
+    Route::post('/program-categories/create','Admin\AdminProgramCategoryController@store')->name('admin-programcategory-store');
+    Route::get('/program-categories/{education_form_id}','Admin\AdminProgramCategoryController@edit')->name('admin-programcategory-edit');
+    Route::post('/program-categories/{education_form_id}','Admin\AdminProgramCategoryController@save')->name('admin-programcategory-save');
+    Route::delete('/program-categories/{education_form_id}','Admin\AdminProgramCategoryController@delete')->name('admin-programcategory-delete');
+
     Route::get('/users','Admin\AdminUserController@index')->name('admin-users-index');
     Route::get('/users/{user_id}','Admin\AdminUserController@detail')->name('admin-user-detail');
     Route::delete('/users/{user_id}','Admin\AdminUserController@delete')->name('admin-user-delete');
