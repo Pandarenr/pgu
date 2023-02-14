@@ -17,7 +17,7 @@ class AdminListenerCategoryController extends Controller
 
     public function index() 
     {
-        return view('admin.program.listener-category.index', ['data' => $this->model->paginate(10)]);
+        return view('admin.program.listener-category.index', ['data' => $this->model->with('programs')->paginate(10)]);
     }
 
     public function create()
@@ -47,17 +47,19 @@ class AdminListenerCategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:255',
         ]);
-        $item=$this->model->where('id',$request->id)->first();
+        $item=$this->model->where('id',$validated['id'])->first();
         $item->name = $validated['name'];
         if ($item->save()){
             return redirect()->route('admin-listenercategories-index')->with('success','Категория студентов создана');
         }
     }
     
-    public function delete($modelId)
-    {
-        $item=$this->model->where('id',$modelId)->first();
+    public function delete(Request $request)
+    {   
+        $validated = $request->validate(['id' => 'int']);
+        $item = $this->model->where('id', $validated['id'])->first();
         if($item){
+            $item->programs()->delete();
             $item->delete();
         }
         return redirect()->route('admin-educationforms-index')->with('success','Форма обучения удалена');
