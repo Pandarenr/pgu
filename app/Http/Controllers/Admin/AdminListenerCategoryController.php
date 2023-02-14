@@ -62,6 +62,6 @@ class AdminListenerCategoryController extends Controller
             $item->programs()->delete();
             $item->delete();
         }
-        return redirect()->route('admin-educationforms-index')->with('success','Форма обучения удалена');
+        return redirect()->route('admin-listenercategories-index')->with('success','Форма обучения удалена');
     }
 }
