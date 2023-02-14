@@ -9,6 +9,9 @@
                 Список программ ДО
             </h2>
             <div>
+                <a href="{{ route('admin-programcategories-index') }}" class="btn btn-primary">
+                    Категории программ
+                </a>
                 <a href="{{ route('admin-listenercategories-index') }}" class="btn btn-primary">
                     Категории студентов
                 </a>
