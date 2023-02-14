@@ -46,6 +46,7 @@ class AdminListenerCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:255',
+            'id' => 'required|int',
         ]);
         $item=$this->model->where('id',$validated['id'])->first();
         $item->name = $validated['name'];
