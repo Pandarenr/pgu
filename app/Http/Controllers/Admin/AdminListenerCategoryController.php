@@ -51,7 +51,7 @@ class AdminListenerCategoryController extends Controller
         $item=$this->model->where('id',$validated['id'])->first();
         $item->name = $validated['name'];
         if ($item->save()){
-            return redirect()->route('admin-listenercategories-index')->with('success','Категория студентов создана');
+            return redirect()->route('admin-listenercategories-index')->with('success','Категория студентов изменена');
         }
     }
     
@@ -63,6 +63,6 @@ class AdminListenerCategoryController extends Controller
             $item->programs()->delete();
             $item->delete();
         }
-        return redirect()->route('admin-listenercategories-index')->with('success','Форма обучения удалена');
+        return redirect()->route('admin-listenercategories-index')->with('success','Категория студентов удалена');
     }
 }
