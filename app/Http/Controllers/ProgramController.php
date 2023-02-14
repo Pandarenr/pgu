@@ -12,18 +12,18 @@ use Auth;
 
 class ProgramController extends Controller
 {
-
     public function index()
     {
-        $data = Program::paginate(9);
-        return view('app.program.index',['data'=>$data]);
+        return view('app.program.index',['data' => Program::paginate(9)]);
     }
 
     public function detail(int $program_id)
     {
         if (Program::where('id',$program_id)->exists()) {
-            $data = Program::where('id',$program_id)->with('programCategory')->first();
-            return view('app.program.detail',['data'=>$data]);
+            return view(
+                'app.program.detail',
+                ['data' => Program::where('id',$program_id)->with('programCategory')->first(),]
+            );
         }
     }
 }

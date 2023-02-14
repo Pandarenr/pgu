@@ -18,8 +18,8 @@ class AdminProgramController extends Controller
     }
 
     public function index() {
-        $programs = $this->program->with('programCategory')->paginate(10);
-        return view('admin.program.index',['programs' => $programs]);
+        $data = $this->program->with('programCategory')->paginate(10);
+        return view('admin.program.index',['data' => $data]);
     }
 
     public function create()
@@ -30,7 +30,7 @@ class AdminProgramController extends Controller
 
     public function edit()
     {
-        $categories=DB::table('program_categories')->get();
+        $data=DB::table('program_categories')->get();
         return view('admin.program.edit',['categories'=>$categories]);
     }
 

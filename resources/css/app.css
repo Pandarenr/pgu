@@ -48,6 +48,14 @@
 }
 
 @layer components{
+    .admin-panel-content{
+        @apply w-full;
+    }
+    .admin-panel-content-head{
+        @apply pt-4;
+        @apply flex;
+        @apply justify-between;
+    }
     .social {
         width: 63px;
         height: 63px;

@@ -17,6 +17,9 @@
                     Название
                 </th>
                 <th>
+                    Кол-во Программ
+                </th>
+                <th>
                     Дата изменения
                 </th>
                 <th>
@@ -27,6 +30,9 @@
                 @foreach($data as $item)
                     <tr>
                         <td>{{$item->name}}</td>
+                        <td>
+                            {{$item->programs->count()}}
+                        </td>
                         <td>{{$item->updated_at}}</td>
                         <td>
                             <div class="flex justify-center">
@@ -35,7 +41,13 @@
                                 </a>
                                 <form method="POST" action="{{ route('admin-educationform-delete',$item->id) }}">
                                     @csrf
-                                    <button class="btn btn-primary">
+                                    <button class="btn btn-primary" 
+                                        @if($item->programs->count() !== 0)
+                                            onclick="return confirm(
+                                                'Это не пустая категория. При её удалении будут удалены и все входящие в неё программы.'
+                                            )"
+                                        @endif
+                                    >
                                         Удалить
                                     </button>
                                 </form>

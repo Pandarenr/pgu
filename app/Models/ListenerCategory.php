@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ListenerCategory extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+    ];
 }

@@ -507,6 +507,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     max-width: 1536px;
   }
 }
+.admin-panel-content {
+  width: 100%;
+}
+.admin-panel-content-head {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
 .social {
         width: 63px;
         height: 63px;
@@ -568,12 +576,6 @@ Ensure the default browser behavior of the `hidden` attribute.
         line-height: 1.5;
         border-radius: .5rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
-.btn-start {
-        border-radius: .5rem 0rem 0rem .5rem;
-    }
-.btn-end {
-        border-radius: 0rem .5rem .5rem 0rem;
     }
 .btn-danger {
         color: #fff;
@@ -794,14 +796,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-40 {
   height: 10rem;
 }
-.h-10 {
-  height: 2.5rem;
-}
 .h-5 {
   height: 1.25rem;
 }
 .h-4 {
   height: 1rem;
+}
+.h-10 {
+  height: 2.5rem;
 }
 .h-6 {
   height: 1.5rem;
@@ -851,18 +853,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-auto {
   width: auto;
 }
-.w-max {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
 .min-w-full {
   min-width: 100%;
-}
-.min-w-max {
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
 }
 .max-w-7xl {
   max-width: 80rem;
@@ -1202,10 +1194,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-left: 3rem;
   padding-right: 3rem;
 }
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
 .py-12 {
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -1217,6 +1205,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+}
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 .px-3 {
   padding-left: 0.75rem;
@@ -1244,11 +1236,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pr-2 {
   padding-right: 0.5rem;
 }
-.pt-4 {
-  padding-top: 1rem;
-}
 .pb-4 {
   padding-bottom: 1rem;
+}
+.pt-4 {
+  padding-top: 1rem;
 }
 .pt-5 {
   padding-top: 1.25rem;
