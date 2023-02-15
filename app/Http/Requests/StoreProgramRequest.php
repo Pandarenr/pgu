@@ -24,11 +24,14 @@ class StoreProgramRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => ['int'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:2000'],
-            'education_form' => ['required'],
             'duration' => ['required','string'],
-            'listener_category' => ['required'],
+            'cost' => ['required','string'],
+            'program_category_id' => ['int','required'],
+            'education_form_id' => ['int','required'],
+            'listener_category_id' => ['int','required'],
             'image' => ['image','mimes:jpg,png,jpeg,gif,svg','nullable','max:2048']
         ];
     }

@@ -30,7 +30,13 @@
                         Название
                     </th>
                     <th>
-                        Направление
+                        Кат. программы
+                    </th>
+                    <th>
+                        Кат. Студентов
+                    </th>
+                    <th>
+                        Форма обучения
                     </th>
                     <th>
                         Действия
@@ -47,16 +53,22 @@
                             {{ $item->programCategory->name }}
                         </td>
                         <td>
+                            {{ $item->listenerCategory->name }}
+                        </td>
+                        <td>
+                            {{ $item->educationForm->name }}
+                        </td>
+                        <td>
                             <div class="flex justify-center">
                                 <a href="{{route('admin-program-edit',$item->id)}}" class="btn btn-success mr-2">
                                     {{ __('Редактировать') }}
                                 </a>
-                                <a href="\program\{{$item->id}}" class="btn btn-primary mr-2">
+                                <a href="\programs\{{$item->id}}" class="btn btn-primary mr-2">
                                     {{ __('Подробно') }}
                                 </a>
                                 <form method="POST" action="{{ route('admin-program-delete',$item->id) }}">
                                     @csrf
-                                    {{ method_field('DELETE') }}
+                                    @method('delete')
                                     <input type="hidden" name="id" value="{{ $item->id }}">
                                     <button class="btn btn-danger"  type="submit">
                                         {{ __('Удалить') }}

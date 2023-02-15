@@ -1,52 +1,65 @@
-<x-app-layout>
-    <x-slot name="title">Редактирование программы {{$program->name}}</x-slot>
-    <form method="POST" action="{{ url('profile/courses') }}">
-        @csrf
-        <input type="hidden" name="id" value="{{$course->id}}">
-        <div class="flex w-full">
-            <div>
-                <x-label for="name" :value="__('Название')" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $course->name }}" required />
-            </div>
-            <div>
-                <x-label for="description" :value="__('Описание')" />
-                <textarea id="description" class="block mt-1 w-full h-40 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="description" required>{{ $course->description }}</textarea>
-            </div>
-            <div>
-                <x-label for="name" :value="__('Форма обучения')" />
-                <x-input id="form" class="block mt-1 w-full" type="text" name="form" value="" required />
-            </div>
-            <div>
-                <x-label for="name" :value="__('Длительность обучения')" />
-                <x-input id="duration" class="block mt-1 w-full" type="text" name="duration" value="" required />
-            </div>
-            <div>
-                <x-label for="name" :value="__('Категория обучающихся')" />
-                <x-input id="kategory" class="block mt-1 w-full" type="text" name="kategory" value="" required />
-            </div>
-            <div class="">
-                <x-label for="name" :value="__('Направление программы')" />
-                <select name="subject_id" id="subject_id" class=" block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    <option value="">Выберете категорию</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @if ($category->id == $program->category_id) selected @endif>{{ $category->name }}</option>
-                    @endforeach
+<x-admin-panel-layout>
+    <x-slot name="title">
+        Создать программу обучения
+    </x-slot>
+    <div class="w-full">
+        <a href="{{ route('admin-programs-index') }}" class="btn btn-primary">
+            Назад
+        </a>
+        <form method="POST" action="{{ route('admin-program-store') }}">
+            <div class="flex flex-col">
+                @csrf
+                <label for="name">
+                    Название
+                </label>
+                <x-input type="text" name="name" id="name" value="{{ $data->name }}" />
+                <label for="description">
+                    Описание
+                </label>
+                <textarea id="description" type="text" name="description">{{ $data->description }}</textarea>
+                <label for="duration">
+                    Длительность обучения
+                </label>
+                <x-input type="text" name="duration" id="duration" value="{{ $data->duration }}" />
+                <label for="cost">
+                    Стоимость обучения
+                </label>
+                <x-input type="text" name="cost" id="cost" value="{{ $data->cost }}" />
+                <label for="program_category_id">
+                    Категория программы
+                </label>
+                <select name="program_category_id" id="program_category_id">
+                        <option value="" selected>Категория программы</option>
+                        @foreach ($programCategories as $item)
+                            <option value="{{ $item->id }}" @if($data->program_category_id == $item->id) selected @endif>{{ $item->name }}</option>
+                        @endforeach
                 </select>
+                <label for="listener_category_id">
+                    Категория студентов
+                </label>
+                <select name="listener_category_id" id="listener_category_id">
+                        <option value="">Категория студентов</option>
+                        @foreach ($listenerCategories as $item)
+                            <option value="{{ $item->id }}" @if($data->listener_category_id == $item->id) selected @endif>{{ $item->name }}</option>
+                        @endforeach
+                </select>
+                <label for="education_form_id">
+                    Форма обучения
+                </label>
+                <select name="education_form_id" id="education_form_id">
+                        <option value="" selected>Выберите форму обучения</option>
+                        @foreach ($educationForms as $item)
+                            <option value="{{ $item->id }}" @if($data->education_form_id == $item->id) selected @endif>{{ $item->name }}</option>
+                        @endforeach
+                </select>
+                <label for="image">
+                    Изображение
+                </label>
+                <input id="image" type="file" name="image" value="">
             </div>
-            <div>
-                <x-label for="name" :value="__('Цена')" />
-                <x-input id="kategory" class="block mt-1 w-full" type="text" name="kategory" value="" required />
-            </div>
-            <div class="">
-                <x-label for="name" :value="__('Изображение')" />
-                <div class="inline-flex rounded-md shadow-sm border-gray-300 border focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50  w-full">
-                    @include('common.svg.upload')
-                    <input id="name" class="border-none block w-full" type="text" name="name" value="" required>
-                </div>
-            </div>
-        </div>
-        <button class="mt-2 btn btn-success">
-            {{ __('Обновить') }}
-        </button>
-    </form>
-</x-app-layout>
+            <button class="btn btn-success">
+                Создать
+            </button>
+        </form>
+    </div>
+</x-admin-panel-layout>

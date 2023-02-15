@@ -18,6 +18,7 @@ class CreateProgramsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('duration');
+            $table->string('cost');
             $table->string('main_image')->nullable();
             $table->foreignId('program_category_id')->constrained('program_categories');
             $table->foreignId('education_form_id')->constrained('education_forms');

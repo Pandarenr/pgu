@@ -9,18 +9,10 @@
             <h1 class="text-4xl font-bold my-2">
                 {{$data->name}}
             </h1>
-            <h3 class="text-xl font-bold my-2">
-                {{$data->education_form}}
-            </h3>
             <div class="pt-6 flex">
                 <a href="{{route('programs-index')}}" class="btn btn-primary">
                     {{ __('Назад') }}
                 </a>
-                @can('program-edit')
-                    <a href="{{route('admin-program-edit',$data->id)}}" class="btn btn-success">
-                        {{ __('Редактировать') }}
-                    </a>
-                @endcan            
             </div>
         </div>
     </div>
@@ -38,7 +30,7 @@
                 {{__('Категория обучающихся')}}
             </span>
             <h2 class="text-slate-100 text-2xl font-semibold">
-                {{$data->listener_category}}
+                {{$data->listenerCategory->name}}
             </h2>
         </div>
         <div class="bg-slate-600 p-6 rounded-md mb-4">
@@ -54,7 +46,13 @@
                 {{__('Цена')}}
             </span>
             <h2 class="text-slate-100 text-2xl font-semibold">
-                {{__('10 000 рублей')}}
+                {{ $data->cost }}
+            </h2>
+            <span class="text-slate-400 text-md">
+                {{__('Форма обучения')}}
+            </span>
+            <h2 class="text-slate-100 text-2xl font-semibold">
+                {{ $data->educationForm->name }}
             </h2>
         </div>
     </div>

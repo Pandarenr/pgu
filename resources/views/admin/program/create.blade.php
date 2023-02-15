@@ -1,48 +1,65 @@
-<x-app-layout>
+<x-admin-panel-layout>
     <x-slot name="title">
         Создать программу обучения
     </x-slot>
-
-    <form method="POST" action="{{route('admin-create-program')}}">
-        @csrf
-        <div class="w-full flex flex-col">
-            <div>
-                <x-label for="name" :value="__('Название')" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="" required />
-            </div>
-            <div>
-                <x-label for="description" :value="__('Описание')" />
-                <textarea id="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="description" required></textarea>
-            </div>
-            <div>
-                <x-label for="name" :value="__('Форма обучения')" />
-                <x-input id="form" class="block mt-1 w-full" type="text" name="education_form" value="" required />
-            </div>
-            <div>
-                <x-label for="name" :value="__('Длительность обучения')" />
-                <x-input id="duration" class="block mt-1 w-full" type="text" name="duration" value="" required />
-            </div>
-            <div>
-                <x-label for="name" :value="__('Категория обучающихся')" />
-                <x-input id="kategory" class="block mt-1 w-full" type="text" name="listener_category" value="" required />
-            </div>
-            <div class="">
-                <x-label for="name" :value="__('Направление программы')" />
-                <select name="program_category_id" id="subject_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                    <option value="" selected>Выберете категорию</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
+    <div class="w-full">
+        <a href="{{ route('admin-programs-index') }}" class="btn btn-primary">
+            Назад
+        </a>
+        <form method="POST" action="{{ route('admin-program-store') }}">
+            <div class="flex flex-col">
+                @csrf
+                <label for="name">
+                    Название
+                </label>
+                <x-input type="text" name="name" id="name" value="" />
+                <label for="description">
+                    Описание
+                </label>
+                <textarea id="description" type="text" name="description"></textarea>
+                <label for="duration">
+                    Длительность обучения
+                </label>
+                <x-input type="text" name="duration" id="duration" value="" />
+                <label for="cost">
+                    Стоимость обучения
+                </label>
+                <x-input type="text" name="cost" id="cost" value="" />
+                <label for="program_category_id">
+                    Категория программы
+                </label>
+                <select name="program_category_id" id="program_category_id">
+                        <option value="" selected>Категория программы</option>
+                        @foreach ($programCategories as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
                 </select>
+                <label for="listener_category_id">
+                    Категория студентов
+                </label>
+                <select name="listener_category_id" id="listener_category_id">
+                        <option value="" selected>Категория студентов</option>
+                        @foreach ($listenerCategories as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                </select>
+                <label for="education_form_id">
+                    Форма обучения
+                </label>
+                <select name="education_form_id" id="education_form_id">
+                        <option value="" selected>Выберите форму обучения</option>
+                        @foreach ($educationForms as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                </select>
+                <label for="image">
+                    Изображение
+                </label>
+                <input id="image" type="file" name="image" value="">
             </div>
-            <div class="">
-                <x-label for="image" :value="__('Изображение')" />
-                <input id="image" type="file" name="image" value="" required>
-                </div>
-            </div>
-            <button class="mt-2 btn btn-success">
-                {{ __('Создать') }}
+            <button class="btn btn-success">
+                Создать
             </button>
-        </div>
-    </form>
-</x-app-layout>
+        </form>
+    </div>
+</x-admin-panel-layout>

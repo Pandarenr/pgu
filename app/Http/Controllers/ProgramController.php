@@ -5,24 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\View;
-use App\Models\ListenerRequest;
 use App\Models\Program;
-use Auth;
 
 class ProgramController extends Controller
 {
-    public function index()
-    {
-        return view('app.program.index',['data' => Program::paginate(9)]);
+    private $model = null;
+
+    public function __construct(){
+        $this->model = new Program;
     }
 
-    public function detail(int $program_id)
+    public function index()
     {
-        if (Program::where('id',$program_id)->exists()) {
+        return view('app.program.index', ['data' => $this->model->paginate(9)]);
+    }
+
+    public function detail(int $id)
+    {
+        $validator = Validator::make(['id' => $id], ['id' => 'required|numeric']);
+        $validated = $validator->validated();
+        if ($this->model->where('id', $validated['id'])->exists()) {
             return view(
                 'app.program.detail',
-                ['data' => Program::where('id',$program_id)->with('programCategory')->first(),]
+                ['data' => $this->model->where('id', $validated['id'])->with('programCategory', 'listenerCategory', 'educationForm')->first(),]
             );
         }
     }

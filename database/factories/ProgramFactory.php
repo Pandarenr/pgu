@@ -17,8 +17,9 @@ class ProgramFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(400),
-            'education_form_id' => $this->faker->numberBetween(1,2),
             'duration' => $this->faker->name(),
+            'cost' => $this->faker->numberBetween(1000,5000),
+            'education_form_id' => $this->faker->numberBetween(1,2),
             'listener_category_id' => $this->faker->numberBetween(1,2),
             'program_category_id' => $this->faker->numberBetween(1,4),
         ];
